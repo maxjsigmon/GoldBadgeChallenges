@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace _01_KomodoCafe_Repo
 {
-    public class FoodMenu
+    public class MenuRepository
     {
-        public List<FoodItems> _repo = new List<FoodItems>();
+        public List<Menu> _repo = new List<Menu>();
         private int _highestFoodNumber = 1;
 
-        public bool AddFoodToMenu(FoodItems food)
+        public bool AddFoodToMenu(Menu food)
         {
             int startingCount = _repo.Count;
             _repo.Add(food);
@@ -24,14 +24,14 @@ namespace _01_KomodoCafe_Repo
             return _highestFoodNumber++;
         }
 
-        public List<FoodItems> SeeAllFood()
+        public List<Menu> SeeAllFood()
         {
             return _repo;
         }
 
-        public FoodItems GetFoodItemsByName(string foodItemName)
+        public Menu GetFoodItemsByName(string foodItemName)
         {
-            foreach (FoodItems food in _repo)
+            foreach (Menu food in _repo)
             {
                 if (food.MealName.ToLower() == foodItemName.ToLower())
                 {
@@ -41,9 +41,9 @@ namespace _01_KomodoCafe_Repo
             return null;
         }
 
-        public bool UpdateFoodItems(string originalFood, FoodItems updatedFood)
+        public bool UpdateFoodItems(string originalFood, Menu updatedFood)
         {
-            FoodItems oldItem = GetFoodItemsByName(originalFood);
+            Menu oldItem = GetFoodItemsByName(originalFood);
 
             if (oldItem != null)
             {
@@ -59,7 +59,7 @@ namespace _01_KomodoCafe_Repo
             }
         }
 
-        public bool DeleteExistingFoodItems(FoodItems existingFood)
+        public bool DeleteExistingFoodItems(Menu existingFood)
         {
             bool deleteFood = _repo.Remove(existingFood);
             return deleteFood;

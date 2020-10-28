@@ -10,7 +10,7 @@ namespace _01_CafeUI
 {
     class ProgramUI
     {
-        private FoodMenu _foodMenu = new FoodMenu();
+        private MenuRepository _foodMenu = new MenuRepository();
 
         public void Run()
         {
@@ -27,7 +27,7 @@ namespace _01_CafeUI
                 Console.WriteLine("Please select an option:\n" +
                     "1. Display entire menu \n" +
                     "2. Add a food item \n" +
-                    "3. Update an item \n" +
+                    "3. Update an item (Under Construction) \n" +
                     "4. Delete an item\n" +
                     "5. Exit");
 
@@ -59,9 +59,9 @@ namespace _01_CafeUI
         public void ShowAllFood()
         {
             Console.Clear();
-            List<FoodItems> listOfFood = _foodMenu.SeeAllFood();
+            List<Menu> listOfFood = _foodMenu.SeeAllFood();
 
-            foreach (FoodItems foodItems in listOfFood)
+            foreach (Menu foodItems in listOfFood)
             {
                 DisplayAllFood(foodItems);
             }
@@ -74,7 +74,7 @@ namespace _01_CafeUI
         {
             Console.Clear();
 
-            FoodItems newFood = new FoodItems(_foodMenu.GetNewFoodNumber());
+            Menu newFood = new Menu(_foodMenu.GetNewFoodNumber());
 
             Console.WriteLine("Please, enter a name for the item.");
             newFood.MealName = Console.ReadLine();
@@ -107,8 +107,8 @@ namespace _01_CafeUI
             Console.WriteLine("Select which item you would like to update:");
             string foodToUpdate = Console.ReadLine();
 
-            FoodItems itemsToUpdate = _foodMenu.GetFoodItemsByName(foodToUpdate);
-            FoodItems updatedFood = new FoodItems();
+            Menu itemsToUpdate = _foodMenu.GetFoodItemsByName(foodToUpdate);
+            Menu updatedFood = new Menu();
 
             Console.WriteLine("Please enter a new name.");
             updatedFood.MealName = Console.ReadLine();
@@ -144,7 +144,7 @@ namespace _01_CafeUI
             Console.WriteLine("Please, select an item to remove:");
             string itemToDelete = Console.ReadLine();
 
-            FoodItems foodToDelete = _foodMenu.GetFoodItemsByName(itemToDelete);
+            Menu foodToDelete = _foodMenu.GetFoodItemsByName(itemToDelete);
             bool wasDeleted = _foodMenu.DeleteExistingFoodItems(foodToDelete);
 
             if (wasDeleted)
@@ -158,7 +158,7 @@ namespace _01_CafeUI
 
         }
 
-        private void DisplayAllFood(FoodItems foodItems)
+        private void DisplayAllFood(Menu foodItems)
         {
             Console.WriteLine($"Menu Item: {foodItems.MealName}");
             Console.WriteLine($"Menu Number: {foodItems.MealNumber}");
