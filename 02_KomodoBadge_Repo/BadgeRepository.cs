@@ -8,5 +8,6 @@ namespace _02_KomodoBadge_Repo
 {
     class BadgeRepository
     {
+        
     }
 }
