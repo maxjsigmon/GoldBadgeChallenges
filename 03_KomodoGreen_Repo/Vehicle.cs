@@ -13,5 +13,13 @@ namespace _03_KomodoGreen_Repo
         public string Model { get; set; }
         public int Year { get; set; }
         public EngineType EngineType { get; set; }
+        public Vehicle() { }
+        public Vehicle(string make, string model, int year, EngineType engineType)
+        {
+            Make = make;
+            Model = model;
+            Year = year;
+            EngineType = engineType;
+        }
     }
 }
