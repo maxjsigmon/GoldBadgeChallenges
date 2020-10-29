@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99E1711D-785A-471C-AF01-0462E474E659}</ProjectGuid>
+    <ProjectGuid>{922DEDBE-912B-4F8F-BAEA-77F521DBCFFA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_02_KomodoBadgeUI</RootNamespace>
-    <AssemblyName>02_KomodoBadgeUI</AssemblyName>
+    <RootNamespace>_03_KomodoGreenUI</RootNamespace>
+    <AssemblyName>03_KomodoGreenUI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,17 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="ProgramUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\02_KomodoBadge_Repo\02_KomodoBadge_Repo.csproj">
-      <Project>{c7700976-0996-4402-aebd-727de3bc73c8}</Project>
-      <Name>02_KomodoBadge_Repo</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

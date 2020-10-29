@@ -9,6 +9,15 @@ namespace _02_KomodoBadge_Repo
     public class Badge
     {
         public int BadgeID { get; set; }
-        public List<string> DoorName { get; set; }
+        public List<string> ListOfDoors { get; set; }
+
+        public Badge() { }
+
+        public Badge(int badgeID, List<string> listOfDoors)
+        {
+            BadgeID = badgeID;
+            ListOfDoors = listOfDoors;
+            
+        }
     }
 }
