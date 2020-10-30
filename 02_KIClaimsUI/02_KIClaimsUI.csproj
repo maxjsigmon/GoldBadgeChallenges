@@ -50,5 +50,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\02_KIClaims_Repo\02_KIClaims_Repo.csproj">
+      <Project>{df2dcd04-cf28-47f5-b60a-1960c6ddd383}</Project>
+      <Name>02_KIClaims_Repo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

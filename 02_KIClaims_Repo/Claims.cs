@@ -15,10 +15,27 @@ namespace _02_KIClaims_Repo
         public double ClaimAmount { get; set; }
         public DateTime DateOfIncident { get; set; }
         public DateTime DateOfClaim { get; set; }
-        public bool IsValid { get { return true; } }
+        public bool IsValid
+        {
+            get
+            {
+                TimeSpan claimSpan = DateOfClaim - DateOfIncident;
+                int daysInSpan = int.Parse(claimSpan.Days.ToString());
+                
 
-
-        public Claims(int claimID, ClaimType claimType, string description, double claimAmount, DateTime dateOfIncident, DateTime dateOfClaim, bool isValid)
+                if (daysInSpan <= 30)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public Claims() { }
+  
+        public Claims(int claimID, ClaimType claimType, string description, double claimAmount, DateTime dateOfIncident, DateTime dateOfClaim)
         {
             ClaimID = claimID;
             ClaimType = claimType;
@@ -27,5 +44,7 @@ namespace _02_KIClaims_Repo
             DateOfIncident = dateOfIncident;
             DateOfClaim = dateOfClaim;
         }
+
+
     }
 }

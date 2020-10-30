@@ -10,6 +10,9 @@ namespace _02_KIClaimsUI
     {
         static void Main(string[] args)
         {
+            ProgramUI ui = new ProgramUI();
+            ui.Run();
+            Console.ReadKey();
         }
     }
 }
