@@ -10,7 +10,6 @@ namespace _01_CafeUI
 {
     class ProgramUI
     {
-        //private MenuRepository _foodMenu = new MenuRepository();
         private MenuRepository _repo = new MenuRepository();
 
         public void Run()
