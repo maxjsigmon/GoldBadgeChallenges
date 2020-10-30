@@ -23,30 +23,40 @@ namespace _03_KomodoGreen_Repo
             return wasAdded;
         }
 
-        public bool AddCarToElectricDirectory(ElectricType vehicle)
+        public bool AddElectricCarToDirectories(ElectricType vehicle)
         {
             int startingCount = _electricDirectory.Count;
             _electricDirectory.Add(vehicle);
+
+            int mainStart = _vehicleDirectory.Count;
+            _vehicleDirectory.Add(vehicle);
 
             bool wasAdded = (_electricDirectory.Count > startingCount) ? true : false;
             return wasAdded;
         }
 
-        public bool AddCarToHybridDirectory(HybridType vehicle)
+        public bool AddHybridCarToDirectories(HybridType vehicle)
         {
             int startingCount = _hybridDirectory.Count;
             _hybridDirectory.Add(vehicle);
 
+            int mainStart = _vehicleDirectory.Count;
+            _vehicleDirectory.Add(vehicle);
+
             bool wasAdded = (_hybridDirectory.Count > startingCount) ? true : false;
             return wasAdded;
         }
-        public bool AddCarToGasDirectory(GasType vehicle)
+        public bool AddGasCarToDirectories(GasType vehicle)
         {
-            int startingCount = _vehicleDirectory.Count;
+            int startingCount = _gasDirectory.Count;
+            _gasDirectory.Add(vehicle);
+
+            int mainStart = _vehicleDirectory.Count;
             _vehicleDirectory.Add(vehicle);
 
-            bool wasAdded = (_vehicleDirectory.Count > startingCount) ? true : false;
+            bool wasAdded = (_gasDirectory.Count > startingCount) ? true : false;
             return wasAdded;
+
         }
         public List<Vehicle> GetVehicles()
         {
@@ -108,24 +118,25 @@ namespace _03_KomodoGreen_Repo
             int startingCount = _electricDirectory.Count;
             _electricDirectory.Remove(modelToUpdate);
 
-            bool wasDeleted = (_vehicleDirectory.Count < startingCount) ? true : false;
+            bool wasDeleted = (_electricDirectory.Count < startingCount) ? true : false;
             return wasDeleted;
         }
+        public bool DeleteHybridVehicleInfo(HybridType modelToUpdate)
+        {
+            int startingCount = _hybridDirectory.Count;
+            _hybridDirectory.Remove(modelToUpdate);
 
-        //public void AddToEngineTypeDirectory(Vehicle vehicle)
-        //{
-        //    if (vehicle.EngineType == EngineType.Electric)
-        //    {
-        //        _electricDirectory.Add((ElectricType)vehicle);
-        //    }
-        //    else if (vehicle.EngineType == EngineType.Hybrid)
-        //    {
-        //        _hybridDirectory.Add((HybridType)vehicle);
-        //    }
-        //    else
-        //    {
-        //        _gasDirectory.Add((GasType)vehicle);
-        //    }
+            bool wasDeleted = (_hybridDirectory.Count < startingCount) ? true : false;
+            return wasDeleted;
+        }
+        public bool DeleteGasVehicleInfo(GasType modelToUpdate)
+        {
+            int startingCount = _gasDirectory.Count;
+            _gasDirectory.Remove(modelToUpdate);
+
+            bool wasDeleted = (_gasDirectory.Count < startingCount) ? true : false;
+            return wasDeleted;
+        }
     }
 }
 

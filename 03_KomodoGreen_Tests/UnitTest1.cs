@@ -13,7 +13,7 @@ namespace _03_KomodoGreen_Tests
             ElectricType vehicle = new ElectricType();
             VehicleRepository repository = new VehicleRepository();
 
-            bool addVehicle = repository.AddCarToElectricDirectory(vehicle);
+            bool addVehicle = repository.AddElectricCarToDirectories(vehicle);
 
             Assert.IsTrue(addVehicle);
         }

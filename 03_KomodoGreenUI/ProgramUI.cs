@@ -13,7 +13,7 @@ namespace _03_KomodoGreenUI
     class ProgramUI
     {
         private VehicleRepository _repo = new VehicleRepository();
-        
+
         public void Run()
         {
             SeedVehicle();
@@ -42,10 +42,9 @@ namespace _03_KomodoGreenUI
                 EngineType.Hybrid,
                 55);
 
-            _repo.AddCarToMainDirectory(teslaS);
-            _repo.AddCarToElectricDirectory(teslaS);
-            _repo.AddCarToMainDirectory(mustang);
-            _repo.AddCarToMainDirectory(prius);
+            _repo.AddElectricCarToDirectories(teslaS);
+            _repo.AddGasCarToDirectories(mustang);
+            _repo.AddHybridCarToDirectories(prius);
         }
 
         private void Menu()
@@ -69,12 +68,12 @@ namespace _03_KomodoGreenUI
                     case "2":
                         ElectricVehicleMenu();
                         break;
-                    //case "3":
-                    //    HybridVehicleMenu();
-                    //    break;
-                    //case "4":
-                    //    GasVehicleMenu();
-                    //    break;
+                    case "3":
+                        HybridVehicleMenu();
+                        break;
+                    case "4":
+                        GasVehicleMenu();
+                        break;
                     case "5":
                         continueToRun = false;
                         break;
@@ -83,7 +82,6 @@ namespace _03_KomodoGreenUI
                         Console.ReadKey();
                         break;
                 }
-
             }
         }
         private void ShowAllVehicles()
@@ -92,6 +90,7 @@ namespace _03_KomodoGreenUI
             foreach (Vehicle vehicle in listOfVehicles)
             {
                 DisplayVehicle(vehicle);
+
             }
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
@@ -132,6 +131,7 @@ namespace _03_KomodoGreenUI
             {
                 Console.Clear();
                 Console.WriteLine("Welcome to the Electric Vehicle Menu.\n" +
+                    "--------------------------\n" +
                     "Please select an option:\n" +
                     "1. See all Electric Vehicles\n" +
                     "2. Add an Electric Vehicle\n" +
@@ -181,7 +181,7 @@ namespace _03_KomodoGreenUI
             Console.WriteLine($"Year: {vehicle.Year}");
             Console.WriteLine($"Engine Type: {vehicle.EngineType}");
             Console.WriteLine($"Driving Range: {vehicle.DrivingRange}");
-            Console.WriteLine($"Charging Time (Minutes): {vehicle.ChargingTime}");                 
+            Console.WriteLine($"Charging Time (Minutes): {vehicle.ChargingTime}");
         }
 
         private void AddAnElectricVehicle()
@@ -217,7 +217,7 @@ namespace _03_KomodoGreenUI
             int timeAnInt = int.Parse(timeInput);
             newEVehicle.ChargingTime = timeAnInt;
 
-            bool wasAdded = _repo.AddCarToElectricDirectory(newEVehicle);
+            bool wasAdded = _repo.AddElectricCarToDirectories(newEVehicle);
             if (wasAdded == true)
             {
                 Console.WriteLine("Your car was added");
@@ -269,7 +269,7 @@ namespace _03_KomodoGreenUI
                 Console.WriteLine("Something went wrong");
             }
 
-            bool wasUpdated = _repo.AddCarToElectricDirectory(updatedVehicle);
+            bool wasUpdated = _repo.AddElectricCarToDirectories(updatedVehicle);
             if (wasUpdated == true)
             {
                 Console.WriteLine("Your car was updated");
@@ -289,6 +289,335 @@ namespace _03_KomodoGreenUI
             ElectricType vehicleToRemove = _repo.GetElectricCarByModel(modelToRemove);
 
             bool carRemoved = _repo.DeleteElectricVehicleInfo(vehicleToRemove);
+            if (carRemoved == true)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+        }
+
+        public void HybridVehicleMenu()
+        {
+            bool continueToRun = true;
+            while (continueToRun)
+            {
+                Console.Clear();
+                Console.WriteLine("Welcome to the Hybrid Vehicle Menu.\n" +
+                    "--------------------------\n" +
+                    "Please select an option:\n" +
+                    "1. See all Hybrid Vehicles\n" +
+                    "2. Add an Hybrid Vehicle\n" +
+                    "3. Update an Hybrid Vehicle\n" +
+                    "4. Delete an Hybrid Vehicle\n" +
+                    "5. Return to main menu");
+                string input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        ShowHybridVehicles();
+                        break;
+                    case "2":
+                        AddAHybridVehicle();
+                        break;
+                    case "3":
+                        UpdateAHybridVehicle();
+                        break;
+                    case "4":
+                        DeleteHybridVehicle();
+                        break;
+                    case "5":
+                        Menu();
+                        break;
+                    default:
+                        Console.WriteLine("Please enter a valid option");
+                        break;
+                }
+            }
+        }
+        private void ShowHybridVehicles()
+        {
+            List<HybridType> hybridTypes = _repo.GetHybridTypes();
+            foreach (HybridType vehicle in hybridTypes)
+            {
+                DisplayHybridVehicle(vehicle);
+            }
+            Console.WriteLine("Press ENTER to continue");
+            Console.ReadKey();
+        }
+
+        private void DisplayHybridVehicle(HybridType vehicle)
+        {
+            Console.WriteLine("--------------------------");
+            Console.WriteLine($"Make: {vehicle.Make}");
+            Console.WriteLine($"Model: {vehicle.Model}");
+            Console.WriteLine($"Year: {vehicle.Year}");
+            Console.WriteLine($"Engine Type: {vehicle.EngineType}");
+            Console.WriteLine($"Miles Per Gallon: {vehicle.MilesPerGallon}mpg");
+        }
+
+        private void AddAHybridVehicle()
+        {
+            HybridType newHVehicle = new HybridType();
+
+            Console.WriteLine("Please enter a make for the car");
+            newHVehicle.Make = Console.ReadLine();
+
+            Console.WriteLine("Please enter a model for the car");
+            newHVehicle.Model = Console.ReadLine();
+
+            Console.WriteLine("Please enter a year for the car");
+            string yearAsString = Console.ReadLine();
+            int yearAsInt = int.Parse(yearAsString);
+            newHVehicle.Year = yearAsInt;
+
+            Console.WriteLine("Please select an engine type for the car");
+            Console.WriteLine("1. Electric");
+            Console.WriteLine("2. Hybrid");
+            Console.WriteLine("3. Gas");
+            string engineTypeInput = Console.ReadLine();
+            int engineTypeAsInt = int.Parse(engineTypeInput);
+            newHVehicle.EngineType = (EngineType)engineTypeAsInt;
+
+            Console.WriteLine("Please enter the miles per gallon");
+            string distanceInput = Console.ReadLine();
+            int distanceAsInt = int.Parse(distanceInput);
+            newHVehicle.MilesPerGallon = distanceAsInt;
+
+            bool wasAdded = _repo.AddHybridCarToDirectories(newHVehicle);
+            bool wasAlsoAdded = _repo.AddCarToMainDirectory(newHVehicle);
+            if (wasAdded && wasAlsoAdded == true)
+            {
+                Console.WriteLine("Your car was added");
+            }
+            else
+            {
+                Console.WriteLine("Add unsuccessful");
+            }
+
+        }
+        private void UpdateAHybridVehicle()
+        {
+            ShowHybridVehicles();
+            Console.WriteLine("Select a model you would like to update");
+            string modelToUpdate = Console.ReadLine();
+
+            HybridType vehicleToUpdate = _repo.GetHybridCarByModel(modelToUpdate);
+
+            HybridType updatedVehicle = new HybridType();
+
+            Console.WriteLine("Please enter a make");
+            updatedVehicle.Make = Console.ReadLine();
+
+            Console.WriteLine("Please enter a model");
+            updatedVehicle.Model = Console.ReadLine();
+
+            Console.WriteLine("Please enter a year");
+            string yearAsString = Console.ReadLine();
+            int yearAsInt = int.Parse(yearAsString);
+            updatedVehicle.Year = yearAsInt;
+
+            Console.WriteLine("Please enter the miles per gallon");
+            string distanceInput = Console.ReadLine();
+            int distanceAsInt = int.Parse(distanceInput);
+            updatedVehicle.MilesPerGallon = distanceAsInt;
+
+            bool oldInfoRemoved = _repo.DeleteHybridVehicleInfo(vehicleToUpdate);
+            if (oldInfoRemoved == true)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+            }
+
+            bool wasUpdated = _repo.AddHybridCarToDirectories(updatedVehicle);
+            if (wasUpdated == true)
+            {
+                Console.WriteLine("Your car was updated");
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+            }
+        }
+
+        private void DeleteHybridVehicle()
+        {
+            ShowElectricVehicles();
+            Console.WriteLine("Which vehicle would you like to remove? Please enter the model name");
+            string modelToRemove = Console.ReadLine();
+
+            HybridType vehicleToRemove = _repo.GetHybridCarByModel(modelToRemove);
+
+            bool carRemoved = _repo.DeleteHybridVehicleInfo(vehicleToRemove);
+            if (carRemoved == true)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+        }
+
+        public void GasVehicleMenu()
+        {
+            bool continueToRun = true;
+            while (continueToRun)
+            {
+                Console.Clear();
+                Console.WriteLine("Welcome to the Gas Vehicle Menu.\n" +
+                    "--------------------------\n" +
+                    "Please select an option:\n" +
+                    "1. See all Gas Vehicles\n" +
+                    "2. Add an Gas Vehicle\n" +
+                    "3. Update an Gas Vehicle\n" +
+                    "4. Delete an Gas Vehicle\n" +
+                    "5. Return to main menu");
+                string input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        ShowGasVehicles();
+                        break;
+                    case "2":
+                        AddAGasVehicle();
+                        break;
+                    case "3":
+                        UpdateGasVehicle();
+                        break;
+                    case "4":
+                        DeleteGasVehicle();
+                        break;
+                    case "5":
+                        Menu();
+                        break;
+                    default:
+                        Console.WriteLine("Please enter a valid option");
+                        break;
+                }
+            }
+        }
+        private void ShowGasVehicles()
+        {
+            List<GasType> gasTypes = _repo.GetGasTypes();
+            foreach (GasType vehicle in gasTypes)
+            {
+                DisplayGasVehicle(vehicle);
+            }
+            Console.WriteLine("Press ENTER to continue");
+            Console.ReadKey();
+        }
+
+        private void DisplayGasVehicle(GasType vehicle)
+        {
+            Console.WriteLine("--------------------------");
+            Console.WriteLine($"Make: {vehicle.Make}");
+            Console.WriteLine($"Model: {vehicle.Model}");
+            Console.WriteLine($"Year: {vehicle.Year}");
+            Console.WriteLine($"Engine Type: {vehicle.EngineType}");
+            Console.WriteLine($"Miles Per Gallon: {vehicle.MilesPerGallon}mpg");
+        }
+
+        private void AddAGasVehicle()
+        {
+            GasType newGVehicle = new GasType();
+
+            Console.WriteLine("Please enter a make for the car");
+            newGVehicle.Make = Console.ReadLine();
+
+            Console.WriteLine("Please enter a model for the car");
+            newGVehicle.Model = Console.ReadLine();
+
+            Console.WriteLine("Please enter a year for the car");
+            string yearAsString = Console.ReadLine();
+            int yearAsInt = int.Parse(yearAsString);
+            newGVehicle.Year = yearAsInt;
+
+            Console.WriteLine("Please select an engine type for the car");
+            Console.WriteLine("1. Electric");
+            Console.WriteLine("2. Hybrid");
+            Console.WriteLine("3. Gas");
+            string engineTypeInput = Console.ReadLine();
+            int engineTypeAsInt = int.Parse(engineTypeInput);
+            newGVehicle.EngineType = (EngineType)engineTypeAsInt;
+
+            Console.WriteLine("Please enter the miles per gallon");
+            string distanceInput = Console.ReadLine();
+            int distanceAsInt = int.Parse(distanceInput);
+            newGVehicle.MilesPerGallon = distanceAsInt;
+
+            bool wasAdded = _repo.AddGasCarToDirectories(newGVehicle);
+            if (wasAdded == true)
+            {
+                Console.WriteLine("Your car was added");
+            }
+            else
+            {
+                Console.WriteLine("Add unsuccessful");
+            }
+
+        }
+        private void UpdateGasVehicle()
+        {
+            ShowHybridVehicles();
+            Console.WriteLine("Select a model you would like to update");
+            string modelToUpdate = Console.ReadLine();
+
+            GasType vehicleToUpdate = _repo.GetGasCarByModel(modelToUpdate);
+
+            GasType updatedVehicle = new GasType();
+
+            Console.WriteLine("Please enter a make");
+            updatedVehicle.Make = Console.ReadLine();
+
+            Console.WriteLine("Please enter a model");
+            updatedVehicle.Model = Console.ReadLine();
+
+            Console.WriteLine("Please enter a year");
+            string yearAsString = Console.ReadLine();
+            int yearAsInt = int.Parse(yearAsString);
+            updatedVehicle.Year = yearAsInt;
+
+            Console.WriteLine("Please enter the miles per gallon");
+            string distanceInput = Console.ReadLine();
+            int distanceAsInt = int.Parse(distanceInput);
+            updatedVehicle.MilesPerGallon = distanceAsInt;
+
+            bool oldInfoRemoved = _repo.DeleteGasVehicleInfo(vehicleToUpdate);
+            if (oldInfoRemoved == true)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+            }
+
+            bool wasUpdated = _repo.AddGasCarToDirectories(updatedVehicle);
+            if (wasUpdated == true)
+            {
+                Console.WriteLine("Your car was updated");
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+            }
+        }
+
+        private void DeleteGasVehicle()
+        {
+            ShowGasVehicles();
+            Console.WriteLine("Which vehicle would you like to remove? Please enter the model name");
+            string modelToRemove = Console.ReadLine();
+
+            GasType vehicleToRemove = _repo.GetGasCarByModel(modelToRemove);
+
+            bool carRemoved = _repo.DeleteGasVehicleInfo(vehicleToRemove);
             if (carRemoved == true)
             {
                 Console.WriteLine();
