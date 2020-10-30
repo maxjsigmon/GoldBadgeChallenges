@@ -10,7 +10,8 @@ namespace _01_CafeUI
 {
     class ProgramUI
     {
-        private MenuRepository _foodMenu = new MenuRepository();
+        //private MenuRepository _foodMenu = new MenuRepository();
+        private MenuRepository _repo = new MenuRepository();
 
         public void Run()
         {
@@ -25,9 +26,9 @@ namespace _01_CafeUI
                 Console.Clear();
 
                 Console.WriteLine("Please select an option:\n" +
-                    "1. Display entire menu \n" +
-                    "2. Add a food item \n" +
-                    "3. Update an item (Under Construction) \n" +
+                    "1. Display entire menu\n" +
+                    "2. Add a food item\n" +
+                    "3. Update an item\n" +
                     "4. Delete an item\n" +
                     "5. Exit");
 
@@ -59,7 +60,7 @@ namespace _01_CafeUI
         public void ShowAllFood()
         {
             Console.Clear();
-            List<Menu> listOfFood = _foodMenu.SeeAllFood();
+            List<Menu> listOfFood = _repo.SeeAllFood();
 
             foreach (Menu foodItems in listOfFood)
             {
@@ -74,7 +75,7 @@ namespace _01_CafeUI
         {
             Console.Clear();
 
-            Menu newFood = new Menu(_foodMenu.GetNewFoodNumber());
+            Menu newFood = new Menu(_repo.GetNewFoodNumber());
 
             Console.WriteLine("Please, enter a name for the item.");
             newFood.MealName = Console.ReadLine();
@@ -90,7 +91,7 @@ namespace _01_CafeUI
             Console.WriteLine("Please, enter the ingredients for the item.");
             newFood.Ingredients = Console.ReadLine();
 
-            bool wasAdded = _foodMenu.AddFoodToMenu(newFood);
+            bool wasAdded = _repo.AddFoodToMenu(newFood);
             if (wasAdded == true)
             {
                 Console.WriteLine("Your food was added to the menu.");
@@ -107,7 +108,7 @@ namespace _01_CafeUI
             Console.WriteLine("Select which item you would like to update:");
             string foodToUpdate = Console.ReadLine();
 
-            Menu itemsToUpdate = _foodMenu.GetFoodItemsByName(foodToUpdate);
+            Menu itemsToUpdate = _repo.GetFoodItemsByName(foodToUpdate);
             Menu updatedFood = new Menu();
 
             Console.WriteLine("Please enter a new name.");
@@ -125,7 +126,17 @@ namespace _01_CafeUI
             Console.WriteLine("Please enter a new list of ingredients.");
             updatedFood.Ingredients = Console.ReadLine();
 
-            bool wasUpdated = _foodMenu.AddFoodToMenu(updatedFood);
+            bool oldInfoRemoved = _repo.DeleteExistingFoodItems(itemsToUpdate);
+            if (oldInfoRemoved == true)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+            }
+
+            bool wasUpdated = _repo.AddFoodToMenu(updatedFood);
             if (wasUpdated == true)
             {
                 Console.WriteLine("Your item was updated.");
@@ -144,8 +155,8 @@ namespace _01_CafeUI
             Console.WriteLine("Please, select an item to remove:");
             string itemToDelete = Console.ReadLine();
 
-            Menu foodToDelete = _foodMenu.GetFoodItemsByName(itemToDelete);
-            bool wasDeleted = _foodMenu.DeleteExistingFoodItems(foodToDelete);
+            Menu foodToDelete = _repo.GetFoodItemsByName(itemToDelete);
+            bool wasDeleted = _repo.DeleteExistingFoodItems(foodToDelete);
 
             if (wasDeleted)
             {

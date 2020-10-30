@@ -61,7 +61,10 @@ namespace _01_KomodoCafe_Repo
 
         public bool DeleteExistingFoodItems(Menu existingFood)
         {
-            bool deleteFood = _repo.Remove(existingFood);
+            int startingCount = _repo.Count;
+            _repo.Remove(existingFood);
+
+            bool deleteFood = (_repo.Count < startingCount) ? true : false;
             return deleteFood;
         }
     }
