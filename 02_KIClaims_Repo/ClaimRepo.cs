@@ -8,13 +8,13 @@ namespace _02_KIClaims_Repo
 {
     public class ClaimRepo
     {
-        public Queue<Claims> _repo = new Queue<Claims>();
+        public Queue<Claims> repo = new Queue<Claims>();
         public int _highestClaimNumber = 1;
         public bool EnqueueNewClaim(Claims newClaim)
         {
-            int startingCount = _repo.Count;
-            _repo.Enqueue(newClaim);
-            bool wasAdded = (_repo.Count > startingCount) ? true : false;
+            int startingCount = repo.Count;
+            repo.Enqueue(newClaim);
+            bool wasAdded = (repo.Count > startingCount) ? true : false;
             return wasAdded;
         }
 
@@ -25,14 +25,14 @@ namespace _02_KIClaims_Repo
 
         public Queue<Claims> GetClaims()
         {
-            return _repo;
+            return repo;
         }
 
         
 
-        //public Queue<Claims> SeeNextClaim()
-        //{
-
-        //}
+        public Queue<Claims> SeeNextClaim()
+        {
+            repo.
+        }
     }
 }
