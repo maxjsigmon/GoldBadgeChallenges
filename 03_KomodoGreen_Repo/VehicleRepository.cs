@@ -57,15 +57,61 @@ namespace _03_KomodoGreen_Repo
             return _electricDirectory;
         }
 
+        public ElectricType GetElectricCarByModel(string model)
+        {
+            foreach(ElectricType eVehicle in _electricDirectory)
+            {
+                if(eVehicle.Model == model)
+                {
+                    return eVehicle;
+                }
+            }
+            return null;
+        }
+
         public List<HybridType> GetHybridTypes()
         {
             return _hybridDirectory;
+        }
+
+        public HybridType GetHybridCarByModel(string model)
+        {
+            foreach (HybridType hVehicle in _hybridDirectory)
+            {
+                if (hVehicle.Model == model)
+                {
+                    return hVehicle;
+                }
+            }
+            return null;
         }
 
         public List<GasType> GetGasTypes()
         {
             return _gasDirectory;
         }
+
+        public GasType GetGasCarByModel(string model)
+        {
+            foreach (GasType gVehicle in _gasDirectory)
+            {
+                if (gVehicle.Model == model)
+                {
+                    return gVehicle;
+                }
+            }
+            return null;
+        }
+
+        public bool DeleteElectricVehicleInfo(ElectricType modelToUpdate)
+        {
+            int startingCount = _electricDirectory.Count;
+            _electricDirectory.Remove(modelToUpdate);
+
+            bool wasDeleted = (_vehicleDirectory.Count < startingCount) ? true : false;
+            return wasDeleted;
+        }
+
         //public void AddToEngineTypeDirectory(Vehicle vehicle)
         //{
         //    if (vehicle.EngineType == EngineType.Electric)

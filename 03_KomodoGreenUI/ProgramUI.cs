@@ -13,6 +13,7 @@ namespace _03_KomodoGreenUI
     class ProgramUI
     {
         private VehicleRepository _repo = new VehicleRepository();
+        
         public void Run()
         {
             SeedVehicle();
@@ -85,7 +86,7 @@ namespace _03_KomodoGreenUI
 
             }
         }
-        public void ShowAllVehicles()
+        private void ShowAllVehicles()
         {
             List<Vehicle> listOfVehicles = _repo.GetVehicles();
             foreach (Vehicle vehicle in listOfVehicles)
@@ -95,12 +96,12 @@ namespace _03_KomodoGreenUI
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }
-        public void DisplayVehicle(Vehicle vehicle)
+        private void DisplayVehicle(Vehicle vehicle)
         {
             Console.WriteLine($"Make: {vehicle.Make}");
             Console.WriteLine($"Model: {vehicle.Model}");
             Console.WriteLine($"Year: {vehicle.Year}");
-            Console.WriteLine($"EngineType: {vehicle.EngineType}");
+            Console.WriteLine($"Engine Type: {vehicle.EngineType}");
 
             if (vehicle.EngineType == EngineType.Electric)
             {
@@ -122,7 +123,6 @@ namespace _03_KomodoGreenUI
                 Console.WriteLine($"Gas Milage: {gas.MilesPerGallon}mpg");
                 Console.WriteLine("------------------------------------");
             }
-
         }
 
         public void ElectricVehicleMenu()
@@ -133,25 +133,25 @@ namespace _03_KomodoGreenUI
                 Console.Clear();
                 Console.WriteLine("Welcome to the Electric Vehicle Menu.\n" +
                     "Please select an option:\n" +
-                    "1. See all Electric Vehicles\n"+
+                    "1. See all Electric Vehicles\n" +
                     "2. Add an Electric Vehicle\n" +
-                    "3. Update an Electric Vehicle\n"+
-                    "4. Update an Electric Vehicle\n"+
+                    "3. Update an Electric Vehicle\n" +
+                    "4. Delete an Electric Vehicle\n" +
                     "5. Return to main menu");
                 string input = Console.ReadLine();
                 switch (input)
                 {
                     case "1":
-                        //ShowElectricVehicles();
+                        ShowElectricVehicles();
                         break;
                     case "2":
                         AddAnElectricVehicle();
                         break;
                     case "3":
-                        //UpdateAnElectricVehicle();
+                        UpdateAnElectricVehicle();
                         break;
                     case "4":
-                        //DeleteAnElectricVehicle();
+                        DeleteElectricVehicle();
                         break;
                     case "5":
                         Menu();
@@ -162,17 +162,29 @@ namespace _03_KomodoGreenUI
                 }
             }
         }
-        //public void ShowElectricVehicles()
-        //{
-        //    List<ElectricType> listOfElectric =
-        //    foreach (ElectricType vehicle in listOfElectric)
-        //    {
-        //        DisplayVehicle(vehicle);
-        //    }
-        //    Console.WriteLine("Press any key to continue");
-        //}
+        private void ShowElectricVehicles()
+        {
+            List<ElectricType> electricTypes = _repo.GetElectricTypes();
+            foreach (ElectricType vehicle in electricTypes)
+            {
+                DisplayElectricVehicle(vehicle);
+            }
+            Console.WriteLine("Press ENTER to continue");
+            Console.ReadKey();
+        }
 
-        public void AddAnElectricVehicle()
+        private void DisplayElectricVehicle(ElectricType vehicle)
+        {
+            Console.WriteLine("--------------------------");
+            Console.WriteLine($"Make: {vehicle.Make}");
+            Console.WriteLine($"Model: {vehicle.Model}");
+            Console.WriteLine($"Year: {vehicle.Year}");
+            Console.WriteLine($"Engine Type: {vehicle.EngineType}");
+            Console.WriteLine($"Driving Range: {vehicle.DrivingRange}");
+            Console.WriteLine($"Charging Time (Minutes): {vehicle.ChargingTime}");                 
+        }
+
+        private void AddAnElectricVehicle()
         {
             ElectricType newEVehicle = new ElectricType();
 
@@ -204,8 +216,8 @@ namespace _03_KomodoGreenUI
             string timeInput = Console.ReadLine();
             int timeAnInt = int.Parse(timeInput);
             newEVehicle.ChargingTime = timeAnInt;
-            
-            bool wasAdded = _repo.AddCarToMainDirectory(newEVehicle);
+
+            bool wasAdded = _repo.AddCarToElectricDirectory(newEVehicle);
             if (wasAdded == true)
             {
                 Console.WriteLine("Your car was added");
@@ -215,6 +227,76 @@ namespace _03_KomodoGreenUI
                 Console.WriteLine("Add unsuccessful");
             }
 
+        }
+        private void UpdateAnElectricVehicle()
+        {
+            ShowElectricVehicles();
+            Console.WriteLine("Select a model you would like to update");
+            string modelToUpdate = Console.ReadLine();
+
+            ElectricType vehicleToUpdate = _repo.GetElectricCarByModel(modelToUpdate);
+
+            ElectricType updatedVehicle = new ElectricType();
+
+            Console.WriteLine("Please enter a make");
+            updatedVehicle.Make = Console.ReadLine();
+
+            Console.WriteLine("Please enter a model");
+            updatedVehicle.Model = Console.ReadLine();
+
+            Console.WriteLine("Please enter a year");
+            string yearAsString = Console.ReadLine();
+            int yearAsInt = int.Parse(yearAsString);
+            updatedVehicle.Year = yearAsInt;
+
+            Console.WriteLine("Please enter a driving range");
+            string distanceInput = Console.ReadLine();
+            int distanceAsInt = int.Parse(distanceInput);
+            updatedVehicle.DrivingRange = distanceAsInt;
+
+            Console.WriteLine("Please enter a charging time");
+            string timeInput = Console.ReadLine();
+            int timeAnInt = int.Parse(timeInput);
+            updatedVehicle.ChargingTime = timeAnInt;
+
+            bool oldInfoRemoved = _repo.DeleteElectricVehicleInfo(vehicleToUpdate);
+            if (oldInfoRemoved == true)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+            }
+
+            bool wasUpdated = _repo.AddCarToElectricDirectory(updatedVehicle);
+            if (wasUpdated == true)
+            {
+                Console.WriteLine("Your car was updated");
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+            }
+        }
+
+        private void DeleteElectricVehicle()
+        {
+            ShowElectricVehicles();
+            Console.WriteLine("Which vehicle would you like to remove? Please enter the model name");
+            string modelToRemove = Console.ReadLine();
+
+            ElectricType vehicleToRemove = _repo.GetElectricCarByModel(modelToRemove);
+
+            bool carRemoved = _repo.DeleteElectricVehicleInfo(vehicleToRemove);
+            if (carRemoved == true)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine();
+            }
         }
     }
 }
