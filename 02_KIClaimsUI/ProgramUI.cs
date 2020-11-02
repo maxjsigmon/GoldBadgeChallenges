@@ -51,9 +51,9 @@ namespace _02_KIClaimsUI
                     case "1":
                         ShowAllClaims();
                         break;
-                    //case "2":
-                    //    GetNextClaim();
-                    //    break;
+                    case "2":
+                        GetNextClaim();
+                        break;
                     case "3":
                         EnterNewClaim();
                         break;
@@ -87,8 +87,18 @@ namespace _02_KIClaimsUI
             Console.WriteLine($"Amount: {claim.ClaimAmount.ToString("C2")}");
             Console.WriteLine($"Date of Incident: {claim.DateOfIncident.ToString("MM/dd/yy")}");
             Console.WriteLine($"Date of Claim: {claim.DateOfClaim.ToString("MM/dd/yy")}");
-            Console.WriteLine($"IsValid {claim.IsValid}");
-            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine($"Is Valid: {claim.IsValid}");
+            Console.WriteLine("_______________________________________");
+            Console.WriteLine();
+        }
+
+        public void GetNextClaim()
+        {
+            Console.Clear();
+            Queue<Claims> claim = _repository.GetClaims();
+            Console.WriteLine("Here are the details for the next claim to be handled:" + claim.Peek());
+            Console.ReadKey();
+            
         }
 
         private void EnterNewClaim()
@@ -99,7 +109,7 @@ namespace _02_KIClaimsUI
             Console.WriteLine("Enter a claim number");
             string idAsString = Console.ReadLine();
             int idAsInt = int.Parse(idAsString);
-            newClaim.ClaimAmount = idAsInt;
+            newClaim.ClaimID = idAsInt;
 
             bool stopRunning = false;
             while (!stopRunning)

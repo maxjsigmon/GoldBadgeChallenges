@@ -9,7 +9,7 @@ namespace _02_KIClaims_Repo
     public enum ClaimType { Car, Home, Theft }
     public class Claims
     {
-        public int ClaimID { get; }
+        public int ClaimID { get; set; }
         public ClaimType ClaimType { get; set; }
         public string Description { get; set; }
         public double ClaimAmount { get; set; }
