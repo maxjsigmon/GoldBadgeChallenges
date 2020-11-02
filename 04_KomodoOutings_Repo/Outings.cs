@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _04_KomodoOutings_Repo
 {
-    public enum EventType { Golf, Bowling, AmusementPark, Concert}
+    public enum EventType { Golf = 1, Bowling, AmusementPark, Concert}
     public class Outings
     {
         public EventType EventType { get; set; }

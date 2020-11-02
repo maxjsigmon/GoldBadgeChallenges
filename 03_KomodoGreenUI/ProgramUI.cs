@@ -447,7 +447,7 @@ namespace _03_KomodoGreenUI
 
         private void DeleteHybridVehicle()
         {
-            ShowElectricVehicles();
+            ShowHybridVehicles();
             Console.WriteLine("Which vehicle would you like to remove? Please enter the model name");
             string modelToRemove = Console.ReadLine();
 

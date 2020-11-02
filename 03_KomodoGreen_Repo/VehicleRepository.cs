@@ -113,6 +113,15 @@ namespace _03_KomodoGreen_Repo
             return null;
         }
 
+        public bool DeleteVehicle(Vehicle modelToUpdate)
+        {
+            int startingCount = _vehicleDirectory.Count;
+            _vehicleDirectory.Remove(modelToUpdate);
+
+            bool wasDeleted = (_vehicleDirectory.Count < startingCount) ? true : false;
+            return wasDeleted;
+        }
+
         public bool DeleteElectricVehicleInfo(ElectricType modelToUpdate)
         {
             int startingCount = _electricDirectory.Count;
@@ -125,14 +134,17 @@ namespace _03_KomodoGreen_Repo
         {
             int startingCount = _hybridDirectory.Count;
             _hybridDirectory.Remove(modelToUpdate);
+           
 
             bool wasDeleted = (_hybridDirectory.Count < startingCount) ? true : false;
             return wasDeleted;
+        
         }
         public bool DeleteGasVehicleInfo(GasType modelToUpdate)
         {
             int startingCount = _gasDirectory.Count;
             _gasDirectory.Remove(modelToUpdate);
+          
 
             bool wasDeleted = (_gasDirectory.Count < startingCount) ? true : false;
             return wasDeleted;

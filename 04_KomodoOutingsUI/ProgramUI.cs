@@ -21,7 +21,15 @@ namespace _04_KomodoOutingsUI
         private void SeedEvents()
         {
             Outings outing1 = new Outings(EventType.Bowling, 25, new DateTime(2020, 10, 26), 9.75);
+            Outings outing2 = new Outings(EventType.Golf, 10, new DateTime(2020, 10, 1), 75);
+            Outings outing3 = new Outings(EventType.AmusementPark, 80, new DateTime(2020, 9, 20), 30);
+            Outings outing4 = new Outings(EventType.Concert, 23, new DateTime(2020, 8, 15), 25);
+            Outings outing5 = new Outings(EventType.Bowling, 35, new DateTime(2020, 2, 26), 9.75);
             outingsRepo.AddOuting(outing1);
+            outingsRepo.AddOuting(outing2);
+            outingsRepo.AddOuting(outing3);
+            outingsRepo.AddOuting(outing4);
+            outingsRepo.AddOuting(outing5);
         }
 
         private void Menu()
@@ -123,11 +131,7 @@ namespace _04_KomodoOutingsUI
             Console.Clear();
             Console.WriteLine("Please select an option\n" +
                "1. Calculate total for all events\n" +
-               "2. Calculate total for golf outings\n" +
-               "3. Calculate total for bowling outings\n" +
-               "4. Calculate total for amusement park outings\n" +
-               "5. Calculate total for concert outings\n" +
-               "6. Exit\n");
+               "2. Calculate total by event type\n");
             string input = Console.ReadLine();
 
             switch (input)
@@ -135,21 +139,9 @@ namespace _04_KomodoOutingsUI
                 case "1":
                     AllEventsTotal();
                     break;
-                //case "2":
-                //    ??;
-                //    break;
-                //case "3":
-                //    ??;
-                //    break;
-                //case "4":
-                //    ??;
-                //    break;
-                //case "5":
-                //    ??;
-                //    break;
-                //case "6":
-                //    ??;
-                //    break;
+                case "2":
+                    TotalByEvent();
+                    break;
                 default:
                     Console.WriteLine("Please select a valid option");
                     Console.ReadKey();
@@ -157,6 +149,7 @@ namespace _04_KomodoOutingsUI
 
             }
         }
+        // Console.WriteLine($"Total cost for {type}: ${outingRepo.GetCostByType(type)}");
         private void DisplayAllCosts(Outings outings)
         {
             Console.WriteLine($"Total: {outings.TotalCost}");
@@ -165,12 +158,19 @@ namespace _04_KomodoOutingsUI
         private void AllEventsTotal()
         {
             Console.Clear();
-            List<Outings> totalCosts = outingsRepo.GetAllOutingsTotal();
-            foreach (Outings costs in totalCosts)
-            {
-                DisplayAllCosts(costs);
-            }
+            double totalCosts = outingsRepo.GetAllOutingsTotal();
+            Console.WriteLine("Total cost of all events: $" + totalCosts);
+          
             Console.WriteLine("Press any key to return to the main menu");
+            Console.ReadKey();
+        }
+
+        private void TotalByEvent()
+        {
+            Console.WriteLine($"Total cost for {EventType.Golf}: ${outingsRepo.GetTotalByEventType(EventType.Golf)}");
+            Console.WriteLine($"Total cost for {EventType.Bowling}: ${outingsRepo.GetTotalByEventType(EventType.Bowling)}");
+            Console.WriteLine($"Total cost for {EventType.AmusementPark}: ${outingsRepo.GetTotalByEventType(EventType.AmusementPark)}");
+            Console.WriteLine($"Total cost for {EventType.Concert}: ${outingsRepo.GetTotalByEventType(EventType.Concert)}");
             Console.ReadKey();
         }
     }

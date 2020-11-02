@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _03_KomodoGreen_Repo
 {
-    public enum EngineType { Gas, Hybrid, Electric }
+    public enum EngineType { Electric = 1, Hybrid, Gas }
     public class Vehicle
     {
         public string Make { get; set; }
