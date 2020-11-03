@@ -13,9 +13,7 @@ namespace _02_KIClaims_Tests
         [TestMethod]
         public void TestMethod1()
         {
-            
            
-            
         }
     }
 }

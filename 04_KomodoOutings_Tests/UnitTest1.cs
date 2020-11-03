@@ -20,8 +20,27 @@ namespace _04_KomodoOutings_Tests
         }
 
         [TestMethod]
-        public void MyTestMethod()
+        public void GetOutingType_ShouldReturnCorrectContent()
         {
+            OutingsRepo repo = new OutingsRepo();
+            Outings newOuting = new Outings(EventType.Bowling, 10, new DateTime (2020, 10, 26), 10);
+            repo.AddOuting(newOuting);
+            EventType eventType = EventType.Bowling;
+
+            Outings result = repo.GetOutingByType(eventType);
+
+            Assert.AreEqual(result.EventType, eventType);
+        }
+
+        [TestMethod]
+        public void GetTotalByEvent_ShouldReturn()
+        {
+            OutingsRepo repo = new OutingsRepo();
+            Outings newOuting = new Outings(EventType.Bowling, 10, new DateTime(2020, 10, 26), 10);
+            Outings newOuting2 = new Outings(EventType.Bowling, 10, new DateTime(2020, 10, 27), 10);
+            repo.AddOuting(newOuting);
+            repo.AddOuting(newOuting2);
+            double costPerPerson = 10;
 
         }
     }
