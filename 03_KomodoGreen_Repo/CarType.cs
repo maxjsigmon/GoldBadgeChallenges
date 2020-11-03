@@ -11,7 +11,7 @@ namespace _03_KomodoGreen_Repo
         public int DrivingRange { get; set; }
         public int ChargingTime { get; set; }
         public ElectricType() { }
-        public ElectricType (string make, string model, int year, EngineType engineType, int drivingRange, int chargingTime)
+        public ElectricType(string make, string model, int year, EngineType engineType, int drivingRange, int chargingTime)
             : base(make, model, year, engineType)
         {
             DrivingRange = drivingRange;
@@ -24,7 +24,7 @@ namespace _03_KomodoGreen_Repo
         public int MilesPerGallon { get; set; }
         public HybridType() { }
         public HybridType(string make, string model, int year, EngineType engineType, int milesPerGallon)
-            :base(make, model, year, engineType)
+            : base(make, model, year, engineType)
         {
             MilesPerGallon = milesPerGallon;
         }
@@ -35,7 +35,7 @@ namespace _03_KomodoGreen_Repo
         public int MilesPerGallon { get; set; }
         public GasType() { }
         public GasType(string make, string model, int year, EngineType engineType, int milesPerGallon)
-            :base(make, model, year, engineType)
+            : base(make, model, year, engineType)
         {
             MilesPerGallon = milesPerGallon;
         }

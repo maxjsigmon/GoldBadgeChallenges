@@ -149,18 +149,12 @@ namespace _04_KomodoOutingsUI
 
             }
         }
-        // Console.WriteLine($"Total cost for {type}: ${outingRepo.GetCostByType(type)}");
-        private void DisplayAllCosts(Outings outings)
-        {
-            Console.WriteLine($"Total: {outings.TotalCost}");
-        }
-
         private void AllEventsTotal()
         {
             Console.Clear();
             double totalCosts = outingsRepo.GetAllOutingsTotal();
             Console.WriteLine("Total cost of all events: $" + totalCosts);
-          
+
             Console.WriteLine("Press any key to return to the main menu");
             Console.ReadKey();
         }

@@ -26,9 +26,9 @@ namespace _04_KomodoOutings_Repo
 
         public Outings GetOutingByType(EventType eventType)
         {
-            foreach(Outings outings in _outingsRepo)
+            foreach (Outings outings in _outingsRepo)
             {
-                if(outings.EventType == eventType)
+                if (outings.EventType == eventType)
                 {
                     return outings;
                 }
@@ -52,7 +52,7 @@ namespace _04_KomodoOutings_Repo
         public double GetAllOutingsTotal()
         {
             double totalCost = 0;
-            foreach(Outings outings in _outingsRepo)
+            foreach (Outings outings in _outingsRepo)
             {
                 totalCost += outings.TotalCost;
             }

@@ -54,7 +54,7 @@ namespace _01_KomodoCafe_Tests
             Menu updatedFood = new Menu("Hamburger", "It's a hamburger", 8.99, "Ground beef, sourdough bun");
 
             repository.AddFoodToMenu(oldItem);
-            bool updateResult = repository.UpdateFoodItems(oldItem.Ingredients, updatedFood);
+            bool updateResult = repository.UpdateFoodItems(oldItem.MealName, updatedFood);
 
             Assert.IsTrue(updateResult);
 

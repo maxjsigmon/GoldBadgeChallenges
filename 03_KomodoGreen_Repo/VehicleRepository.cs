@@ -69,9 +69,9 @@ namespace _03_KomodoGreen_Repo
 
         public ElectricType GetElectricCarByModel(string model)
         {
-            foreach(ElectricType eVehicle in _electricDirectory)
+            foreach (ElectricType eVehicle in _electricDirectory)
             {
-                if(eVehicle.Model == model)
+                if (eVehicle.Model == model)
                 {
                     return eVehicle;
                 }
@@ -134,17 +134,17 @@ namespace _03_KomodoGreen_Repo
         {
             int startingCount = _hybridDirectory.Count;
             _hybridDirectory.Remove(modelToUpdate);
-           
+
 
             bool wasDeleted = (_hybridDirectory.Count < startingCount) ? true : false;
             return wasDeleted;
-        
+
         }
         public bool DeleteGasVehicleInfo(GasType modelToUpdate)
         {
             int startingCount = _gasDirectory.Count;
             _gasDirectory.Remove(modelToUpdate);
-          
+
 
             bool wasDeleted = (_gasDirectory.Count < startingCount) ? true : false;
             return wasDeleted;

@@ -14,9 +14,9 @@ namespace _01_KomodoCafe_Repo
         public double Price { get; set; }
         public string Ingredients { get; set; }
 
-        
+
         public Menu() { }
-        public Menu(int mealNumber) 
+        public Menu(int mealNumber)
         {
             MealNumber = mealNumber;
         }

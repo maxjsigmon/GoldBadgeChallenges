@@ -41,18 +41,18 @@ namespace _01_CafeUI
                     case "2":
                         AddAFoodItem();
                         break;
-                        case "3":
-                            UpdateAnItem();
-                            break;
-                        case "4":
-                            DeleteAnItem();
-                            break;
-                        case "5":
-                            continueToRun = false;
-                            break;
-                        default:
-                            Console.WriteLine("Please select a valid option");
-                            break;
+                    case "3":
+                        UpdateAnItem();
+                        break;
+                    case "4":
+                        DeleteAnItem();
+                        break;
+                    case "5":
+                        continueToRun = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please select a valid option");
+                        break;
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace _01_CafeUI
             string priceAsString = Console.ReadLine();
             double priceAsDouble = double.Parse(priceAsString);
             updatedFood.Price = priceAsDouble;
-            
+
 
             Console.WriteLine("Please enter a new list of ingredients.");
             updatedFood.Ingredients = Console.ReadLine();
